@@ -712,10 +712,11 @@ elseif(isvector(mat) && isnum2cell==1)
    mat=mat(:).';
 end
 
-if(size(mat,1)==1)
+if(size(mat,2)==1)
     pre='';
     post='';
     level=level-1;
+    mat = mat';
 else
     pre=sprintf('[%s',nl);
     post=sprintf('%s%s]',nl,repmat(tab,1,level-1));
