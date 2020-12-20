@@ -36,10 +36,10 @@ function json=savejson(rootname,obj,varargin)
 %                         sparse arrays, the non-zero elements will be
 %                         saved to _ArrayData_ field in triplet-format i.e.
 %                         (ix,iy,val) and "_ArrayIsSparse_" will be added
-%                         with a value of 1; for a complex array, the 
-%                         _ArrayData_ array will include two columns 
-%                         (4 for sparse) to record the real and imaginary 
-%                         parts, and also "_ArrayIsComplex_":1 is added. 
+%                         with a value of 1; for a complex array, the
+%                         _ArrayData_ array will include two columns
+%                         (4 for sparse) to record the real and imaginary
+%                         parts, and also "_ArrayIsComplex_":1 is added.
 %           NestArray    [0|1]: If set to 1, use nested array constructs
 %                         to store N-dimensional arrays; if set to 0,
 %                         use the annotated array format defined in the
@@ -50,14 +50,14 @@ function json=savejson(rootname,obj,varargin)
 %                         numerical element will be shown without a square
 %                         bracket, unless it is the root object; if 0, square
 %                         brackets are forced for any numerical arrays.
-%           SingletCell  [1|0]: if 1, always enclose a cell with "[]" 
+%           SingletCell  [1|0]: if 1, always enclose a cell with "[]"
 %                         even it has only one element; if 0, brackets
 %                         are ignored when a cell has only 1 element.
 %           ForceRootName [0|1]: when set to 1 and rootname is empty, savejson
-%                         will use the name of the passed obj variable as the 
-%                         root object name; if obj is an expression and 
-%                         does not have a name, 'root' will be used; if this 
-%                         is set to 0 and rootname is empty, the root level 
+%                         will use the name of the passed obj variable as the
+%                         root object name; if obj is an expression and
+%                         does not have a name, 'root' will be used; if this
+%                         is set to 0 and rootname is empty, the root level
 %                         will be merged down to the lower level.
 %           Inf ['"$1_Inf_"'|string]: a customized regular expression pattern
 %                         to represent +/-Inf. The matched pattern is '([-+]*)Inf'
@@ -68,27 +68,27 @@ function json=savejson(rootname,obj,varargin)
 %           JSONP [''|string]: to generate a JSONP output (JSON with padding),
 %                         for example, if opt.JSONP='foo', the JSON data is
 %                         wrapped inside a function call as 'foo(...);'
-%           UnpackHex [1|0]: conver the 0x[hex code] output by loadjson 
+%           UnpackHex [1|0]: conver the 0x[hex code] output by loadjson
 %                         back to the string form
 %           SaveBinary [0|1]: 1 - save the JSON file in binary mode; 0 - text mode.
 %           Compact [0|1]: 1- out compact JSON format (remove all newlines and tabs)
-%           Compression  'zlib', 'gzip', 'lzma', 'lzip', 'lz4' or 'lz4hc': specify array 
+%           Compression  'zlib', 'gzip', 'lzma', 'lzip', 'lz4' or 'lz4hc': specify array
 %                         compression method; currently only supports 6 methods. The
-%                         data compression only applicable to numerical arrays 
+%                         data compression only applicable to numerical arrays
 %                         in 3D or higher dimensions, or when ArrayToStruct
 %                         is 1 for 1D or 2D arrays. If one wants to
 %                         compress a long string, one must convert
 %                         it to uint8 or int8 array first. The compressed
 %                         array uses three extra fields
-%                         "_ArrayZipType_": the opt.Compression value. 
+%                         "_ArrayZipType_": the opt.Compression value.
 %                         "_ArrayZipSize_": a 1D interger array to
 %                            store the pre-compressed (but post-processed)
-%                            array dimensions, and 
+%                            array dimensions, and
 %                         "_ArrayZipData_": the "base64" encoded
-%                             compressed binary array data. 
-%           CompressArraySize [100|int]: only to compress an array if the total 
+%                             compressed binary array data.
+%           CompressArraySize [100|int]: only to compress an array if the total
 %                         element count is larger than this number.
-%           CompressStringSize [400|int]: only to compress a string if the total 
+%           CompressStringSize [400|int]: only to compress a string if the total
 %                         element count is larger than this number.
 %           FormatVersion [2|float]: set the JSONLab output version; since
 %                         v2.0, JSONLab uses JData specification Draft 1
@@ -98,18 +98,18 @@ function json=savejson(rootname,obj,varargin)
 %           Encoding ['']: json file encoding. Support all encodings of
 %                         fopen() function
 %           Append [0|1]: if set to 1, append a new object at the end of the file.
-%           Endian ['n'|'b','l']: Endianness of the output file ('n': native, 
+%           Endian ['n'|'b','l']: Endianness of the output file ('n': native,
 %                         'b': big endian, 'l': little-endian)
 %           PreEncode [1|0]: if set to 1, call jdataencode first to preprocess
 %                         the input data before saving
 %
-%        opt can be replaced by a list of ('param',value) pairs. The param 
+%        opt can be replaced by a list of ('param',value) pairs. The param
 %        string is equivallent to a field in opt and is case sensitive.
 % output:
 %      json: a string in the JSON format (see http://json.org)
 %
 % examples:
-%      jsonmesh=struct('MeshNode',[0 0 0;1 0 0;0 1 0;1 1 0;0 0 1;1 0 1;0 1 1;1 1 1],... 
+%      jsonmesh=struct('MeshNode',[0 0 0;1 0 0;0 1 0;1 1 0;0 0 1;1 0 1;0 1 1;1 1 1],...
 %               'MeshElem',[1 2 4 8;1 3 4 8;1 2 6 8;1 5 6 8;1 5 7 8;1 3 7 8],...
 %               'MeshSurf',[1 2 4;1 2 6;1 3 4;1 3 7;1 5 6;1 5 7;...
 %                          2 8 4;2 8 6;3 8 4;3 8 7;5 8 6;5 8 7],...
@@ -178,7 +178,7 @@ if(~isempty(dozip))
         catch
             error('java-based compression is not supported');
         end
-    end    
+    end
     opt.Compression=dozip;
 end
 
@@ -318,7 +318,7 @@ if(len>bracketlevel)
     end
 elseif(len==0)
     if(~isempty(name))
-        txt={padding0, '"' decodevarname(name,varargin{1}.unpackhex) '":[]'}; name=''; 
+        txt={padding0, '"' decodevarname(name,varargin{1}.unpackhex) '":[]'}; name='';
     else
         txt={padding0, '[]'};
     end
@@ -349,7 +349,7 @@ if(ndims(squeeze(item))>2) % for 3D or higher dimensions, flatten to 2D for now
     dim=size(item);
 end
 len=numel(item);
-forcearray= (len>1 || (varargin{1}.singletarray==1 && level>0));
+forcearray= (len>1 || (varargin{1}.singletarray==1 && level>0 && ~isstruct(item)));
 ws=varargin{1}.whitespaces_;
 padding0=repmat(ws.tab,1,level);
 padding2=repmat(ws.tab,1,level+1);
@@ -359,8 +359,8 @@ if(isfield(item,encodevarname('_ArrayType_',varargin{1}.unpackhex)))
     varargin{1}.nosubstruct_=1;
 end
 
-if(isempty(item)) 
-    if(~isempty(name)) 
+if(isempty(item))
+    if(~isempty(name))
         txt={padding0, '"', decodevarname(name,varargin{1}.unpackhex),'":[]'};
     else
         txt={padding0, '[]'};
@@ -451,13 +451,13 @@ if(~strcmp(item.KeyType,'char'))
 end
 
 len=prod(dim);
-forcearray= (len>1 || (varargin{1}.singletarray==1 && level>0));
+forcearray= (len>1 || (varargin{1}.singletarray==1 && level>0 && ~isstruct(item)));
 ws=varargin{1}.whitespaces_;
 padding0=repmat(ws.tab,1,level);
 nl=ws.newline;
 
-if(isempty(item)) 
-    if(~isempty(name)) 
+if(isempty(item))
+    if(~isempty(name))
         txt={padding0, '"', decodevarname(name,varargin{1}.unpackhex),'":[]'};
     else
         txt={padding0, '[]'};
@@ -465,7 +465,7 @@ if(isempty(item))
     txt = sprintf('%s',txt{:});
     return;
 end
-if(~isempty(name)) 
+if(~isempty(name))
     if(forcearray)
         txt={padding0, '"', decodevarname(name,varargin{1}.unpackhex),'":{', nl};
     end
@@ -506,7 +506,7 @@ padding0=repmat(ws.tab,1,level+1);
 nl=ws.newline;
 sep=ws.sep;
 
-if(~isempty(name)) 
+if(~isempty(name))
     if(len>1)
         txt={padding1, '"', decodevarname(name,varargin{1}.unpackhex),'":[', nl};
     end
@@ -566,7 +566,7 @@ if(~varargin{1}.nosubstruct_ && ( ((isnest==0) && length(size(item))>2) || isspa
               padding1,decodevarname(name,varargin{1}.unpackhex),nl,padding0,class(item),nl,padding0,regexprep(mat2str(size(item)),'\s+',','),nl);
     end
 else
-    numtxt=matdata2json(item,level+1,varargin{:});   
+    numtxt=matdata2json(item,level+1,varargin{:});
     if(isempty(name))
     	txt=sprintf('%s%s',padding1,numtxt);
     else
@@ -621,7 +621,7 @@ if(issparse(item))
             fulldata=[ix,iy,data];
         end
         txt=sprintf(dataformat,txt,padding0,'"_ArrayData_":',...
-               matdata2json(fulldata',level+2,varargin{:}), nl);    
+               matdata2json(fulldata',level+2,varargin{:}), nl);
     end
 else
     if(format>1.9)
